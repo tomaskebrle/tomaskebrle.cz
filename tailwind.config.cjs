@@ -9,7 +9,7 @@ module.exports = {
         tertiary: "#595959",
       },
       fontFamily: {
-        serif: ["'Playfair Display'", "serif"],
+        serif: ["'EB Garamond'", "serif"],
         mono: ["'Firacode'", "monospace"],
       },
     },
