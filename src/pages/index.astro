@@ -1,50 +1,74 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Layout from "../components/Layout.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
+  .slice(0, 5);
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header title={SITE_TITLE} />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/pages/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Layout description="Tomáš Kebrle - Fullstack developer" title="Tomáš Kebrle">
+  <main
+    class="dark:text-slate-100 text-secondary grid grid-cols-2 place-items-center w-screen h-screen"
+  >
+    <section>
+      <h1 class="text-primary font-serif text-5xl">Hello, I am Tomáš 👋</h1>
+
+      <div class="flex gap-2 items-center mb-8">
+        <a href="/blog" class="hover:underline">blog</a>
+        <div class="dot"></div>
+        <a href="/about" class="hover:underline">about me</a>
+        <div class="dot"></div>
+        <a href="/portfolio" class="hover:underline">projects</a>
+        <div class="dot"></div>
+        <a href="https://github.com/tomaskebrle" class="hover:underline"
+          >github</a
+        >
+        <div class="dot"></div>
+        <a href="https://twitter.com/tomas_kebrle">twitter</a>
+      </div>
+
+      <p class="text-justify">
+        I'm a 17 year old developer from Czech Republic 🇨🇿.<br />
+        I mainly focus on web-development <span class="text-tertiary"
+          >(Typescript, Svelte, GO)</span
+        >. <br />
+        My main project currently is <a
+          href="https://school.mesh.sk"
+          class="hover:underline text-tertiary">school.mesh.sk</a
+        >, an all in one <br />
+        tool for school.
+      </p>
+    </section>
+
+    <section class="w-full">
+      <h2 class="text-primary text-5xl font-serif mb-4">Blog</h2>
+      <ul class="mb-4">
+        {
+          posts.map((post) => (
+            <li>
+              <a
+                href={`/blog/${post.slug}`}
+                class="flex items-center gap-2 hover:target:first:underline "
+              >
+                <h3>{post.data.title}</h3>
+                <div class="dot" />
+                <FormattedDate date={post.data.pubDate} />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href="/blog" class="text-secondary p-0.5 bg-primary">All posts</a>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .dot {
+    @apply w-1 h-1 rounded-full bg-tertiary;
+  }
+</style>
