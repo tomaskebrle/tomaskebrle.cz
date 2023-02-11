@@ -10,7 +10,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 <BaseLayout title={title} description={description}>
   <main>
-    <article class="flex justify-center flex-col lg:px-[30%] py-4">
+    <article class="flex justify-center flex-col px-4 md:px-[30%] py-4">
       {
         heroImage && (
           <img
@@ -23,11 +23,11 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         )
       }
       <div class="my-4">
-        <a href="/" class="text-tertiary hover:underline mb-2">cd ../</a><a
+        <a href="/" class="text-tertiary hover:underline">cd ~/</a><a
           href="/blog"
           class="text-tertiary hover:underline">blog</a
         >
-        <h1 class="title font-serif text-6xl text-primary">{title}</h1>
+        <h1 class="title font-serif text-6xl text-primary mt-2">{title}</h1>
         <div class="flex gap-4 items-center">
           <FormattedDate date={pubDate} />
           <div class="dot"></div>
@@ -42,7 +42,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       </div>
 
       <div
-        class="prose lg:prose-xl dark:prose-invert prose-headings:font-serif prose-headings:font-normal font-sans prose-img:rounded-lg"
+        class="prose text-justify prose-li:m-0 prose-li:prose-a:no-underline prose-a:no-underline hover:prose-a:underline prose-a:text-tertiary dark:prose-invert prose-headings:font-serif prose-headings:font-normal font-sans prose-img:rounded-lg prose-h2:text-5xl prose-headings:my-4 prose-headings:mt-8 prose-h3:text-4xl prose-h4:text-3xl"
       >
         <slot />
       </div>

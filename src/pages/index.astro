@@ -16,7 +16,7 @@ const posts = (await getCollection("blog"))
   <TwoGridLayout>
     <section>
       <h1 class="text-primary font-serif text-5xl">Hello, I am Tomáš 👋</h1>
-      <div class="flex gap-2 items-center mb-8">
+      <div class="flex gap-2 items-center mb-8 flex-wrap">
         <a href="/blog" class="hover:underline">blog</a>
         <div class="dot"></div>
         <a href="/about" class="hover:underline">about me</a>
@@ -46,11 +46,8 @@ const posts = (await getCollection("blog"))
         {
           posts.map((post) => (
             <li>
-              <a
-                href={`/blog/${post.slug}`}
-                class="flex items-center gap-2 hover:target:first:underline "
-              >
-                <h3>{post.data.title}</h3>
+              <a href={`/blog/${post.slug}`} class="flex items-center gap-2">
+                <h3 class="hover:underline">{post.data.title}</h3>
                 <div class="dot" />
                 <FormattedDate date={post.data.pubDate} />
               </a>

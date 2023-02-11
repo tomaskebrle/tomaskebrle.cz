@@ -5,3 +5,7 @@ body {
 .dot {
   @apply w-1 h-1 rounded-full bg-tertiary;
 }
+
+html {
+  scroll-behavior: smooth;
+}

@@ -1,0 +1,49 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import getPostsByTag from "@utils/getPostsByTag";
+import getUniqueTags from "@utils/getUniqueTags";
+import { CollectionEntry, getCollection } from "astro:content";
+import Posts from "@components/Posts.astro";
+import TwoGridLayout from "@layouts/TwoGridLayout.astro";
+
+export interface Props {
+  post: CollectionEntry<"blog">;
+  tag: string;
+}
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+
+  const tags = getUniqueTags(posts);
+
+  return tags.map((tag) => {
+    return {
+      params: { tag },
+      props: { tag },
+    };
+  });
+}
+
+const { tag } = Astro.props;
+
+const posts = await getCollection("blog");
+
+const tagPosts = getPostsByTag(posts, tag);
+---
+
+<BaseLayout title="Tags" description={`All posts with ${tag} tag`}>
+  <TwoGridLayout>
+    <section>
+      <span class="py-4"
+        ><a href="/" class="text-tertiary hover:underline">cd ~/</a><a
+          href="/blog"
+          class="text-tertiary hover:underline">blog</a
+        ></span
+      >
+      <h1 class="text-7xl font-serif mt-2">
+        <span class="font-mono">#</span>{tag}
+      </h1>
+    </section>
+    <Posts posts={tagPosts} />
+  </TwoGridLayout>
+</BaseLayout>

@@ -3,37 +3,38 @@ import { getCollection } from "astro:content";
 import FormattedDate from "@components/FormattedDate.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import TwoGridLayout from "@layouts/TwoGridLayout.astro";
+import getUniqueTags from "@utils/getUniqueTags";
+import Posts from "@components/Posts.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
 );
+
+const tags = getUniqueTags(posts);
 ---
 
 <BaseLayout description="All my posts in one place" title="Blog | Tomáš Kebrle">
   <TwoGridLayout>
     <section class="self-start">
-      <a href="/" class="text-tertiary hover:underline">cd ../</a>
-      <h1 class="text-5xl text-primary font-serif mb-4">Blog</h1>
+      <a href="/" class="text-tertiary hover:underline">cd ~/</a>
+      <h1 class="text-5xl text-primary font-serif mb-4 mt-2">Blog</h1>
+      <Posts posts={posts} />
+    </section>
+
+    <section class="self-start md:order-last order-first">
+      <br />
+      <h1 class="text-5xl text-primary font-serif mb-4">Tags</h1>
       <ul>
         {
-          posts.map((post) => (
-            <li class="mb-4">
-              <a href={`/blog/${post.slug}/`}>
-                <div class="flex items-center gap-2">
-                  <h3 class="text-xl">{post.data.title}</h3>
-                  <div class="dot" />
-                  <FormattedDate date={post.data.pubDate} />
-                </div>
-                <p class="text-tertiary">{post.data.description}</p>
+          tags.map((tag: string) => (
+            <li class="py-1">
+              <a href={`/tags/${tag}/`}>
+                <h3 class="text-tertiary hover:underline">#{tag}</h3>
               </a>
             </li>
           ))
         }
       </ul>
-    </section>
-
-    <section class="self-start">
-      <h1 class="text-5xl text-primary font-serif mb-4">Tags</h1>
     </section>
   </TwoGridLayout>
 </BaseLayout>
