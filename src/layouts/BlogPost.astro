@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
+import BaseLayout from "../components/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 
@@ -10,42 +10,44 @@ type Props = CollectionEntry<"blog">["data"];
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<html lang="en">
-  <head>
-    <BaseHead title={title} description={description} />
-    <style>
-      .title {
-        font-size: 2em;
-        margin: 0.25em 0 0;
+<BaseLayout title={title} description={description}>
+  <main>
+    <article class="flex justify-center flex-col lg:px-[30%] py-4">
+      {
+        heroImage && (
+          <img
+            width={720}
+            height={360}
+            src={heroImage}
+            alt=""
+            class="rounded-lg my-8"
+          />
+        )
       }
-      hr {
-        border-top: 1px solid #ddd;
-        margin: 1rem 0;
-      }
-      .last-updated-on {
-        font-style: italic;
-      }
-    </style>
-  </head>
+      <div class="my-4">
+        <a href="/" class="text-tertiary hover:underline mb-2">cd ../</a><a
+          href="/blog"
+          class="text-tertiary hover:underline">blog</a
+        >
+        <h1 class="title font-serif text-6xl text-primary">{title}</h1>
+        <div class="flex gap-4 items-center">
+          <FormattedDate date={pubDate} />
+          <div class="dot"></div>
+          {
+            updatedDate && (
+              <div class="text-tertiary">
+                Last updated on <FormattedDate date={updatedDate} />
+              </div>
+            )
+          }
+        </div>
+      </div>
 
-  <body>
-    <Header />
-    <main>
-      <article>
-        {heroImage && <img width={720} height={360} src={heroImage} alt="" />}
-        <h1 class="title">{title}</h1>
-        <FormattedDate date={pubDate} />
-        {
-          updatedDate && (
-            <div class="last-updated-on">
-              Last updated on <FormattedDate date={updatedDate} />
-            </div>
-          )
-        }
-        <hr />
+      <div
+        class="prose lg:prose-xl dark:prose-invert prose-headings:font-serif prose-headings:font-normal font-sans prose-img:rounded-lg"
+      >
         <slot />
-      </article>
-    </main>
-    <Footer />
-  </body>
-</html>
+      </div>
+    </article>
+  </main>
+</BaseLayout>

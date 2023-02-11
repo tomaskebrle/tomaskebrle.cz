@@ -5,9 +5,10 @@ export interface Props {
   title: string;
   description: string;
   image?: string;
+  children: any;
 }
 
-const { title, description, image = "/placeholder-social.jpg" } = Astro.props;
+const { title, description, image } = Astro.props;
 ---
 
 <!DOCTYPE html>

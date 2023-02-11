@@ -1,54 +1,39 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
+import BaseLayout from "../../components/BaseLayout.astro";
+import TwoGridLayout from "../../components/TwoGridLayout.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
 );
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <style>
-      ul {
-        list-style-type: none;
-        padding: unset;
-      }
-      ul li {
-        display: flex;
-      }
-      ul li :global(time) {
-        flex: 0 0 130px;
-        font-style: italic;
-        color: #595959;
-      }
-      ul li a:visited {
-        color: #8e32dc;
-      }
-    </style>
-  </head>
-  <body>
-    <Header />
-    <main>
-      <section>
-        <ul>
-          {
-            posts.map((post) => (
-              <li>
-                <FormattedDate date={post.data.pubDate} />
-                <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-    </main>
-    <Footer />
-  </body>
-</html>
+<BaseLayout description="All my posts in one place" title="Blog | Tomáš Kebrle">
+  <TwoGridLayout>
+    <section class="self-start">
+      <a href="/" class="text-tertiary hover:underline">cd ../</a>
+      <h1 class="text-5xl text-primary font-serif mb-4">Blog</h1>
+      <ul>
+        {
+          posts.map((post) => (
+            <li class="mb-4">
+              <a href={`/blog/${post.slug}/`}>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-xl">{post.data.title}</h3>
+                  <div class="dot" />
+                  <FormattedDate date={post.data.pubDate} />
+                </div>
+                <p class="text-tertiary">{post.data.description}</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="self-start">
+      <h1 class="text-5xl text-primary font-serif mb-4">Tags</h1>
+    </section>
+  </TwoGridLayout>
+</BaseLayout>

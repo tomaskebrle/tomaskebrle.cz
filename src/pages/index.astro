@@ -2,7 +2,8 @@
 import { getCollection } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import FormattedDate from "../components/FormattedDate.astro";
-import Layout from "../components/Layout.astro";
+import BaseLayout from "../components/BaseLayout.astro";
+import TwoGridLayout from "../components/TwoGridLayout.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 
 const posts = (await getCollection("blog"))
@@ -10,13 +11,13 @@ const posts = (await getCollection("blog"))
   .slice(0, 5);
 ---
 
-<Layout description="Tomáš Kebrle - Fullstack developer" title="Tomáš Kebrle">
-  <main
-    class="dark:text-slate-100 text-secondary grid grid-cols-2 place-items-center w-screen h-screen"
-  >
+<BaseLayout
+  description="Tomáš Kebrle - Fullstack developer"
+  title="Tomáš Kebrle"
+>
+  <TwoGridLayout>
     <section>
       <h1 class="text-primary font-serif text-5xl">Hello, I am Tomáš 👋</h1>
-
       <div class="flex gap-2 items-center mb-8">
         <a href="/blog" class="hover:underline">blog</a>
         <div class="dot"></div>
@@ -30,8 +31,7 @@ const posts = (await getCollection("blog"))
         <div class="dot"></div>
         <a href="https://twitter.com/tomas_kebrle">twitter</a>
       </div>
-
-      <p class="text-justify">
+      <p>
         I'm a 17 year old developer from Czech Republic 🇨🇿.<br />
         I mainly focus on web-development <span class="text-tertiary"
           >(Typescript, Svelte, GO)</span
@@ -39,12 +39,10 @@ const posts = (await getCollection("blog"))
         My main project currently is <a
           href="https://school.mesh.sk"
           class="hover:underline text-tertiary">school.mesh.sk</a
-        >, an all in one <br />
-        tool for school.
+        >, an all in one tool for school.
       </p>
     </section>
-
-    <section class="w-full">
+    <section>
       <h2 class="text-primary text-5xl font-serif mb-4">Blog</h2>
       <ul class="mb-4">
         {
@@ -64,11 +62,5 @@ const posts = (await getCollection("blog"))
       </ul>
       <a href="/blog" class="text-secondary p-0.5 bg-primary">All posts</a>
     </section>
-  </main>
-</Layout>
-
-<style>
-  .dot {
-    @apply w-1 h-1 rounded-full bg-tertiary;
-  }
-</style>
+  </TwoGridLayout>
+</BaseLayout>

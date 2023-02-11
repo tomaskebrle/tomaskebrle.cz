@@ -1,0 +1,58 @@
+---
+import ProjectCard from "../components/ProjectCard.astro";
+import Layout from "../layouts/BlogPost.astro";
+---
+
+<Layout
+  title="Portfolio"
+  description="All my projects I have created"
+  pubDate={new Date("February 11 2023")}
+  updatedDate={new Date("February 11 2023")}
+>
+  <div class="not-prose">
+    <div class="mb-4"></div>
+    <ProjectCard
+      name="school.mesh"
+      image="/mesh.jpg"
+      url="https://school.mesh.sk"
+    >
+      The project i am currently focusing on. It's an all in one app for school.
+      With groups notes and tasks. <br />
+      The app is a monorepo, with two sveltekit apps, one for authentication, so
+      I can easily add other apps, and the school sveltekit app. For backend i am
+      using <a
+        href="https://pocketbase.io"
+        class="hover:underline no-underline text-tertiary">pocketbase.</a
+      > And extending it with GO.
+    </ProjectCard>
+
+    <ProjectCard
+      name="Astro OG image"
+      image="/astro-og-image.jpg"
+      url="https://npmjs.com/package/astro-og-image"
+    >
+      A utility for astro projects, like this site, to automatically generate
+      open graph images using puppeteer.
+    </ProjectCard>
+
+        <ProjectCard
+      name="Maturita book"
+      image="/maturita_book.jpg"
+      url="https://maturita-book.vercel.app"
+    >
+      A next.js, Firabase project I built for my class. Where people can look at the reading list from our school, rate them and comment on them.
+    </ProjectCard>
+
+
+    <ProjectCard
+      name="Code time"
+      image="/code_time.png"
+      url="https://github.com/tomaskebrle/tour-de-app"
+    >
+      Sveltekit, pocketbase app, developed with three friends for the first round of <a href="https://tourdeapp.cz" class="hover:underline text-tertiary">tourdeapp</a> competition.
+      It allows users record their programming sessions, and then sort through them.
+    </ProjectCard>
+
+
+  </div>
+</Layout>
