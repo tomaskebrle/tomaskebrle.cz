@@ -5,7 +5,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import TwoGridLayout from "@layouts/TwoGridLayout.astro";
 
 const posts = (await getCollection("blog"))
-  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 5);
 ---
 

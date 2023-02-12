@@ -5,7 +5,7 @@ import FormattedDate from "../components/FormattedDate.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage,tags } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -27,7 +27,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
           href="/blog"
           class="text-tertiary hover:underline">blog</a
         >
-        <h1 class="title font-serif text-6xl text-primary mt-2">{title}</h1>
+        <h1 class="title font-serif text-6xl text-primary mt-2 mb-8">{title}</h1>
         <div class="flex gap-4 items-center">
           <FormattedDate date={pubDate} />
           <div class="dot"></div>
@@ -38,11 +38,15 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
               </div>
             )
           }
+          <div class="dot"></div>
+          {tags && tags.map(tag => (
+            <a href={`/tags/${tag}`} class="link">#{tag}</a>
+          ))}
         </div>
       </div>
 
       <div
-        class="prose text-justify prose-li:m-0 prose-li:prose-a:no-underline prose-a:no-underline hover:prose-a:underline prose-a:text-tertiary dark:prose-invert prose-headings:font-serif prose-headings:font-normal font-sans prose-img:rounded-lg prose-h2:text-5xl prose-headings:my-4 prose-headings:mt-8 prose-h3:text-4xl prose-h4:text-3xl"
+        class="prose text-justify prose-pre:text-left prose-blockquote:not-italic prose-blockquote:text-left prose- prose-pre:font-mono prose-li:m-0 prose-li:prose-a:no-underline prose-a:no-underline hover:prose-a:underline prose-a:text-tertiary dark:prose-invert prose-headings:font-serif prose-headings:font-normal font-sans prose-img:rounded-lg prose-h2:text-4xl prose-headings:my-4 prose-headings:mt-8 prose-h3:text-3xl prose-h4:text-2xl"
       >
         <slot />
       </div>

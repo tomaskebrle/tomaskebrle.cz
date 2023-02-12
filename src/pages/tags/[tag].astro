@@ -28,7 +28,7 @@ const { tag } = Astro.props;
 
 const posts = await getCollection("blog");
 
-const tagPosts = getPostsByTag(posts, tag);
+const tagPosts = getPostsByTag(posts, tag).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 ---
 
 <BaseLayout title="Tags" description={`All posts with ${tag} tag`}>
@@ -40,7 +40,7 @@ const tagPosts = getPostsByTag(posts, tag);
           class="text-tertiary hover:underline">blog</a
         ></span
       >
-      <h1 class="text-7xl font-serif mt-2">
+      <h1 class="text-7xl font-serif mt-2 text-primary">
         <span class="font-mono">#</span>{tag}
       </h1>
     </section>

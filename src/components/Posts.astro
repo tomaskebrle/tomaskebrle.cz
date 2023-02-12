@@ -13,11 +13,10 @@ const { posts } = Astro.props;
     posts.map((post) => (
       <li class="mb-4 hover:translate-x-1 duration-300">
         <a href={`/blog/${post.slug}/`}>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-">
             <h3 class="text-xl">{post.data.title}</h3>
-            <div class="dot" />
+            </div>
             <FormattedDate date={post.data.pubDate} />
-          </div>
           <p class="text-tertiary">{post.data.description}</p>
         </a>
       </li>
