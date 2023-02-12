@@ -15,8 +15,8 @@ const { posts } = Astro.props;
         <a href={`/blog/${post.slug}/`}>
           <div class="flex items-center gap-">
             <h3 class="text-xl">{post.data.title}</h3>
-            </div>
-            <FormattedDate date={post.data.pubDate} />
+          </div>
+          <FormattedDate date={post.data.pubDate} />
           <p class="text-tertiary">{post.data.description}</p>
         </a>
       </li>

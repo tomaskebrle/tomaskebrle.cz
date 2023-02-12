@@ -17,7 +17,7 @@ In this guide I will show you how to setup a basic Sveltekit monorepo using [Tur
 
 To better scale and this monorepo we are gonna use [Turborepo](https://turbo.build). For the initial scaffolding we are gonna use create-turbo CLI, altough we are gonna delete most of the files it creates.
 
-```bash
+```bash:Terminal
 npx create-turbo@latest
 ```
 
@@ -25,7 +25,7 @@ This command will ask you where do you want to put your monorepo, and which pack
 
 This will give us these initial directories
 
-```bash
+```bash:Files
 ├── apps
 │   ├── docs
 │   └── web
@@ -41,7 +41,7 @@ And as I said we can delete most of this stuff.
 
 Start of by removing the `docs` and `web` folders from the `apps` directory. Then create a new sveltekit app inside:
 
-```bash
+```bash:Terminal
 cd apps
 pnpm create svelte@latest my-app
 ```
@@ -50,9 +50,9 @@ Configure the app however you want, though I recommend selecting the Skeleton pr
 
 ## Setting up ESLint
 
-Copy the created eslint config from sveltekit app into index.js in eslint-config-custom. The file should look like this:
+Copy the created eslint config from sveltekit app into `index.js` in eslint-config-custom. The file should look like this:
 
-```js
+```js:index.js
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
@@ -82,7 +82,7 @@ module.exports = {
 
 We'll also need to install all the dependencies and remove the old ones.
 
-```bash
+```bash:Terminal
 cd packages/eslint-config-custom
 pnpm add -D @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-prettier eslint-plugin-svelte3
 pnpm remove eslint-config-next eslint-plugin-react
@@ -92,19 +92,19 @@ Also move the `.eslintignore` to the root directory.
 
 And then comeback to the `apps` directory and remove all the eslint dependencies that we installed in the `eslint-config-custom`, since they are no longer needed.
 
-```bash
+```bash:Terminal
 pnpm remove @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-prettier eslint-plugin-svelte3
 ```
 
 And add the `eslint-config-custom` package
 
-```bash
+```bash:Terminal
 pnpm add -D eslint-config-custom
 ```
 
 Also don't forget to change the `.eslintrc.js`, to extend the custom config.
 
-```js
+```js:.eslintrc.js
 module.exports = {
   root: true,
   extends: ["custom"],
@@ -117,7 +117,7 @@ Now you can check that eslint work by just running `pnpm run lint`
 
 You can copy the `.prettierrc` and `.prettierignore` files to the root, and then you need to modify the `.prettierignore`, by putting the `**/` before the nested folders.
 
-```text
+```text:.prettierrc
 .DS_Store
 node_modules
 **/build
@@ -137,14 +137,14 @@ yarn.lock
 Due to [some issues](https://github.com/prettier/prettier/issues/4081) in prettier itself you will need to modify the scripts.
 First modify the `lint` script in the `apps/web/package.json` , by removing the prettier command.
 
-```diff
+```diff:package.json
 - "lint": "prettier --plugin-search-dir . --check . && eslint .",
 + "lint": "eslint .",
 ```
 
 And add these two script into your root `package.json`
 
-```json
+```json:package.json
 "prettier": "prettier --write \"**/*.{ts,tsx,md,svelte,js,json,yaml}\"",
 "prettier-check": "prettier --plugin-search-dir . --check ."
 ```
@@ -164,7 +164,7 @@ As far as I understand by default svelte files are formatted by the svelte VSCod
 
 And add these two lines:
 
-```json
+```json:settings.json
 "prettier.documentSelectors": ["**/*.svelte"],
 "[svelte]": {
   "editor.formatOnSave": true,

@@ -28,7 +28,9 @@ const { tag } = Astro.props;
 
 const posts = await getCollection("blog");
 
-const tagPosts = getPostsByTag(posts, tag).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+const tagPosts = getPostsByTag(posts, tag).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 ---
 
 <BaseLayout title="Tags" description={`All posts with ${tag} tag`}>

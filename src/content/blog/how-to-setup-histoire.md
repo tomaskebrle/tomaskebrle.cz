@@ -18,7 +18,7 @@ In this guide I'll focus on setting up components package in our monorepo, for t
 
 First of all we need to create a space for our components.
 
-```bash
+```bash:Terminal
 cd packages
 mkdir components
 cd components
@@ -29,7 +29,7 @@ This will create a `components` folder where we'll put all our components.
 
 Then create a `src` folder and put a `index.ts` file here. This file will be our entrypoint to components and we'll export all the components from here, and that's why we also need to modify `package.json` and change the `main` property, to tell PNPM where to find our components.
 
-```json
+```json:package.json
 "main" : "src/index.ts"
 ```
 
@@ -37,7 +37,7 @@ Then create a `src` folder and put a `index.ts` file here. This file will be our
 
 Finally we can create our first component let's start by creating a `Button.svelte`.
 
-```svelte
+```svelte:Button.svelte
 <button on:click>
   <slot/>
 </button>
@@ -53,15 +53,17 @@ Finally we can create our first component let's start by creating a `Button.svel
 
 Now to use this component we must modify the `index.ts` file we create earlier, by exporting the component.
 
-```ts
+```ts:index.ts
 export { default as Button } from "./Button.svelte";
 ```
 
-> You don't need to do this, but you would have to then do `import Button from "components/Button.svelte"`, by putting this here you can then import multiple components at once like this `import {Button, Input, Count} from "components"`
+:::note{.error}
+You don't need to do this, but you would have to then do `import Button from "components/Button.svelte"`, by putting this here you can then import multiple components at once like this `import {Button, Input, Count} from "components"`
+:::
 
 Before we can go test out our new component we need to add the components package as dependency to our app, by running:
 
-```bash
+```bash:Terminal
 pnpm add components
 ```
 
@@ -69,7 +71,7 @@ pnpm add components
 
 After doing this we can go to `+page.svelte` and import our Button component
 
-```svelte
+```svelte:+page.svelte
 <script>
   import {Button} from "components"
 </script>
@@ -85,14 +87,14 @@ Now we are going to add [Histoire](https://histoire.dev), which will allow us to
 
 Firs of all since it's powered by vite we need to install and setup vite with svelte
 
-```bash
+```bash:Terminal
 pnpm add -D vite @sveltejs/vite-plugin-svelte typescript
 pnpm add svelte
 ```
 
 And create a `vite.config.ts`
 
-```typescript
+```typescript:vite.config.ts
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 
@@ -104,7 +106,7 @@ export default defineConfig({
 
 After that we can setup Histoire, create an `histoire.config.ts`
 
-```typescript
+```typescript:histoire.config.ts
 import { defineConfig } from "histoire";
 import { HstSvelte } from "@histoire/plugin-svelte";
 
@@ -115,7 +117,7 @@ export default defineConfig({
 
 Our last config will be the `svelte.config.js`.
 
-```javascript
+```javascript:svelte.config.js
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 
 export default {
@@ -125,13 +127,13 @@ export default {
 
 and don't forget to install the dependencies
 
-```bash
+```bash:Terminal
 pnpm add histoire -D @histoire/plugin-svelte
 ```
 
 Now modify the `package.json`. Don't forget the `"type"` key because leaving it out will break vite.
 
-```json
+```json:package.json
 "type": "module",
 "scripts": {
   "dev": "histoire dev",
@@ -147,7 +149,7 @@ For us to be able to see the stories we need to create a story file that will te
 
 But just to showcase the power of Histoire let's create our first story by creating a `Button.story.svelte`
 
-```svelte
+```svelte:Button.story.svelte
 <script lang="ts">
   import type { Hst } from '@histoire/plugin-svelte';
   import Button from './Button.svelte';
@@ -181,7 +183,7 @@ Create a `Button.story.md` file. This file will allow you to document your compo
 
 For example
 
-````markdown
+````markdown:Button.story.md
 # Button
 
 Component used for clicking
