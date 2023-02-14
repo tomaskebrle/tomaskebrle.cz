@@ -151,7 +151,9 @@ And add these two script into your root `package.json`
 
 The first command will format all your code, and the second one will only check it.
 
-**NOTE:** You will need to do this for all other apps where you want to use prettier
+:::note{.tip}
+You will need to do this for all other apps where you want to use prettier
+:::
 
 ### Formatting on Auto-save
 

@@ -10,7 +10,9 @@
 
 In this guide I'll focus on setting up components package in our monorepo, for that we are gonna use [Histoire](https://histoire.dev). Which is a tool that will allow us to develop components in isolation, and document them. It's a [vite](https://vitejs.dev) powered alternative to [Storybook](https://storybook.js.org).
 
-**NOTE:** This is a continuation of my [monorepo guide](/tags/monorepo), you can find the first article [here](/blog/how-to-setup-a-monorepo).
+:::note{.tip}
+This is a continuation of my [monorepo guide](/tags/monorepo), you can find the first article [here](/blog/how-to-setup-a-monorepo).
+:::
 
 ## Table of contents
 
@@ -67,7 +69,9 @@ Before we can go test out our new component we need to add the components packag
 pnpm add components
 ```
 
-> If you have problems runnnig this command check that you have put `components` folder in packages, or in other folder defined by `pnpm-workspace.yaml`, and that your `package.json` name matches the name of the package you are trying to install.
+:::note{.tip}
+If you have problems runnnig this command check that you have put `components` folder in packages, or in other folder defined by `pnpm-workspace.yaml`, and that your `package.json` name matches the name of the package you are trying to install.
+:::
 
 After doing this we can go to `+page.svelte` and import our Button component
 
@@ -171,7 +175,9 @@ But just to showcase the power of Histoire let's create our first story by creat
 </Hst.Story>
 ```
 
-> I recommend creating a folder for each component since it can get messy with a story file, documentation file and a component file all placed next to other component files.
+:::note{.tip}
+I recommend creating a folder for each component since it can get messy with a story file, documentation file and a component file all placed next to other component files.
+:::
 
 Now when you open you Histoire dev server you can click on your Button story, and try it out. It will give you a clean slate to develop your components in with options to trigger responsivity, change the background color. We've also implented a `logEvent` which you can see in the Events tab.
 
