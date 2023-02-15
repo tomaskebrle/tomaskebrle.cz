@@ -1,10 +1,9 @@
 ---
-  postSlug: why-to-use-monorepo
-  title: Why would you want to use a monorepo?
+  postSlug: setting-up-monorepo-for-mesh
+  title: Setting up a monorepo for mesh
   description: What I learned and found when setting up a monorepo for mesh
   tags: 
     - mesh
-    - monorepo
   pubDate: February 13, 2023
   updatedDate: February 13, 2023
 ---

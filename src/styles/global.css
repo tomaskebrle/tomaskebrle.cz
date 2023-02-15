@@ -6,6 +6,10 @@ body {
   @apply w-1 h-1 rounded-full bg-tertiary;
 }
 
+.xl-dot {
+  @apply xl:w-1 xl:h-1 rounded-full bg-tertiary;
+}
+
 html {
   scroll-behavior: smooth;
 }

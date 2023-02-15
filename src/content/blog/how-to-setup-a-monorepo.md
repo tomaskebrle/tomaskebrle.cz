@@ -3,7 +3,6 @@
   title: How to setup a monorepo
   description: Guide on how to setup a basic Sveltekit monorepo
   tags: 
-    - mesh
     - monorepo
   pubDate: February 10, 2023
   updatedDate: February 10, 2023

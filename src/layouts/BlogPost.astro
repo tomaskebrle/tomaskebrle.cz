@@ -11,7 +11,7 @@ const { title, description, pubDate, updatedDate, heroImage, tags } =
 
 <BaseLayout title={title} description={description}>
   <main>
-    <article class="flex justify-center flex-col px-4 md:px-[30%] py-4">
+    <article class="flex justify-center flex-col px-4 lg:px-[30%] py-4">
       {
         heroImage && (
           <img
@@ -31,9 +31,9 @@ const { title, description, pubDate, updatedDate, heroImage, tags } =
         <h1 class="title font-serif text-6xl text-primary mt-2 mb-8">
           {title}
         </h1>
-        <div class="flex gap-4 items-center">
+        <div class="xl:flex gap-4 items-center">
           <FormattedDate date={pubDate} />
-          <div class="dot"></div>
+          <div class="xl-dot"></div>
           {
             updatedDate && (
               <div class="text-tertiary">
@@ -41,7 +41,7 @@ const { title, description, pubDate, updatedDate, heroImage, tags } =
               </div>
             )
           }
-          <div class="dot"></div>
+          <div class="xl-dot"></div>
           {
             tags &&
               tags.map((tag) => (
