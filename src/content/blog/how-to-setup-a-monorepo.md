@@ -14,6 +14,10 @@ In this guide I will show you how to setup a basic Sveltekit monorepo using [Tur
 
 ## Initial setup
 
+:::note{.tip}
+If you don't want to setup all these things yourself you can use the template I created at [https://github.com/tomaskebrle/sveltekit-monorepo-template](https://github.com/tomaskebrle/sveltekit-monorepo-template)
+:::
+
 To better scale and this monorepo we are gonna use [Turborepo](https://turbo.build). For the initial scaffolding we are gonna use create-turbo CLI, altough we are gonna delete most of the files it creates.
 
 ```bash:Terminal
