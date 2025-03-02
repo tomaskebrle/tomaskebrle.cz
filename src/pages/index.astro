@@ -1,61 +1,36 @@
 ---
-import { getCollection } from "astro:content";
-import FormattedDate from "@components/FormattedDate.astro";
-import BaseLayout from "@layouts/BaseLayout.astro";
-import TwoGridLayout from "@layouts/TwoGridLayout.astro";
-
-const posts = (await getCollection("blog"))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 5);
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Story from "../components/Story.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import { persona } from "../persona";
+import List from "../components/List.astro";
+import ListItem from "../components/ListItem.astro";
+import Section from "../components/Section.astro";
+const fullName = persona.firstName + " " + persona.secondName;
 ---
 
-<BaseLayout
-  description="Tomáš Kebrle - Fullstack developer"
-  title="Tomáš Kebrle"
->
-  <TwoGridLayout>
-    <section>
-      <h1 class="text-primary font-serif text-5xl">Hello, I am Tomáš 👋</h1>
-      <div class="flex gap-2 items-center mb-8 flex-wrap">
-        <a href="/blog" class="hover:underline">blog</a>
-        <div class="dot"></div>
-        <a href="/about" class="hover:underline">about me</a>
-        <div class="dot"></div>
-        <a href="/portfolio" class="hover:underline">projects</a>
-        <div class="dot"></div>
-        <a href="https://github.com/tomaskebrle" class="hover:underline"
-          >github</a
-        >
-        <div class="dot"></div>
-        <a href="/cv.pdf" class="hover:underline">cv</a>
-      </div>
-      <p>
-        I'm a 17 year old developer from Czech Republic 🇨🇿.<br />
-        I mainly focus on web-development <span class="text-tertiary"
-          >(Typescript, Svelte, GO)</span
-        >. <br />
-        My main project currently is <a
-          href="https://school.mesh.sk"
-          class="hover:underline text-tertiary">school.mesh.sk</a
-        >, an all in one tool for school.
-      </p>
-    </section>
-    <section>
-      <h2 class="text-primary text-5xl font-serif mb-4">Blog</h2>
-      <ul class="mb-4">
-        {
-          posts.map((post) => (
-            <li>
-              <a href={`/blog/${post.slug}`} class="flex items-center gap-2">
-                <h3 class="hover:underline">{post.data.title}</h3>
-                <div class="dot" />
-                <FormattedDate date={post.data.pubDate} />
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <a href="/blog" class="text-secondary p-0.5 bg-primary">All posts</a>
-    </section>
-  </TwoGridLayout>
-</BaseLayout>
+<Layout title={fullName} desc={persona.description}>
+  <Header title={fullName} description={persona.description} />
+  <Story story={persona.story} />
+  <Section>
+    <SectionTitle title="Projects" />
+    <List>
+      {
+        persona.sections.projects.map((e) => (
+          <ListItem title={e.title} desc={e.desc} url={e.url} />
+        ))
+      }
+    </List>
+  </Section>
+  <Section>
+    <SectionTitle title="Experience" />
+    <List>
+      {
+        persona.sections.experience.map((e) => (
+          <ListItem title={e.title} desc={e.desc} url={e.url} />
+        ))
+      }
+    </List>
+  </Section>
+</Layout>
