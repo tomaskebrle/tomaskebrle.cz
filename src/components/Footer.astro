@@ -1,0 +1,16 @@
+---
+import { persona } from "../persona";
+import Link from "./Link.astro";
+---
+
+<footer>
+  <h3 class="text-l/primary dark:text-d/primary">Reach out</h3>
+  <p class="text-sm text-l/tertiary dark:text-d/tertiary">
+    get in touch:
+    <Link
+      target="_self"
+      title={persona.email}
+      url={`mailto:${persona.email}`}
+    />
+  </p>
+</footer>
